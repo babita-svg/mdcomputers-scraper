@@ -1,6 +1,0 @@
-{
-  "name": "MDComputers Product Scraper",
-  "description": "Python web scraper for MDComputers e-commerce search results with interactive code exporter, live preview, CSV/JSON downloads, and GitHub export guide.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
