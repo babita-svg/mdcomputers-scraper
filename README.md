@@ -1,94 +1,87 @@
-# MDComputers Product Scraper 🛒
+# MDComputers Product Scraper
 
-A fast, modular Python web scraper for [MDComputers.in](https://mdcomputers.in) search results. Extracts product names, selling prices, MRPs, discount percentages, stock availability, direct URLs, thumbnail images, and brands with pagination and export capabilities.
+A simple Python web scraper that searches MDComputers for a product term and extracts product details from the search results.
 
----
+## Assignment
 
-## ⚡ Quick Start
+Write a Python script to scrape product details from MDComputers for a search term.
 
-### 1. Installation
-Clone the repository and install required dependencies:
+Example search URL:
+`https://mdcomputers.in/?route=product/search&search=external%20harddrive`
+
+## What it extracts
+
+- Product ID
+- Product name/title
+- Brand
+- Selling price (INR)
+- MRP
+- Discount percentage
+- Stock status
+- Product URL
+- Product image URL
+- Short description
+
+## Requirements
+
+- Python 3.9+
+- `requests`
+- `beautifulsoup4`
+
+Install dependencies:
 
 ```bash
-git clone https://github.com/<your-username>/mdcomputers-scraper.git
-cd mdcomputers-scraper
 pip install -r requirements.txt
 ```
 
-### 2. Basic Usage
+## Usage
 
-Scrape external hard drives (default search query):
+Run the default example search:
+
+```bash
+python mdcomputers_scraper.py
+```
+
+Search for a specific product:
+
 ```bash
 python mdcomputers_scraper.py --search "external harddrive"
 ```
 
-Save results to a CSV file across 2 pages:
-```bash
-python mdcomputers_scraper.py -s "external harddrive" -p 2 -o harddrives.csv
-```
-
-Save results as JSON:
-```bash
-python mdcomputers_scraper.py -s "rtx 4070" -p 1 -o rtx_gpus.json --format json
-```
-
----
-
-## ⚙️ CLI Options & Arguments
-
-| Flag | Long Flag | Default | Description |
-|---|---|---|---|
-| `-s` | `--search` | `"external harddrive"` | Query keywords to search on MDComputers |
-| `-p` | `--pages` | `1` | Number of result pages to crawl |
-| `-o` | `--output` | `mdcomputers_products.csv` | Output file destination (`.csv` or `.json`) |
-| `-f` | `--format` | `csv` or `json` | Format specifier (auto-inferred from filename) |
-| `-d` | `--delay` | `1.5` | Polite delay in seconds between page requests |
-
----
-
-## 📊 Extracted Data Schema
-
-Each scraped record contains:
-
-```json
-{
-  "product_id": "18492",
-  "title": "Western Digital Elements 2TB USB 3.0 Portable External Hard Drive (WDBU6Y0020BBK-WESN)",
-  "brand": "Western Digital",
-  "price_inr": 5890,
-  "mrp_inr": 8900,
-  "discount_percent": 33.8,
-  "stock_status": "In Stock",
-  "product_url": "https://mdcomputers.in/index.php?route=product/product&product_id=18492",
-  "image_url": "https://mdcomputers.in/image/cache/catalog/hdd/western-digital/wdbu6y0020bbk-wesn-500x500.jpg",
-  "description": "2TB Capacity, USB 3.0 & 2.0 Compatibility, Fast Data Transfers, High Capacity in a Compact Design"
-}
-```
-
----
-
-## 🚀 How to Push to GitHub
-
-You can publish this project to GitHub using standard Git commands:
+Scrape multiple result pages and save JSON:
 
 ```bash
-# 1. Initialize git in this directory
-git init
-
-# 2. Add all files
-git add .
-
-# 3. Commit files
-git commit -m "feat: initial commit of MDComputers Python scraper"
-
-# 4. Set default branch to main
-git branch -M main
-
-# 5. Create a new GitHub repository and link it
-git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/mdcomputers-scraper.git
-
-# 6. Push code to GitHub
-git push -u origin main
+python mdcomputers_scraper.py --search "graphics card" --pages 2 --output results.json --format json
 ```
 
-*(Tip: In Google AI Studio, you can also click the top-right Settings/Export menu to directly export this repository to your connected GitHub account!)*
+Save CSV output:
+
+```bash
+python mdcomputers_scraper.py --search "ddr5 ram" --output results.csv
+```
+
+## Options
+
+| Option | Description | Default |
+|---|---|---|
+| `-s, --search` | Product search term | `external harddrive` |
+| `-p, --pages` | Maximum pages to scrape | `1` |
+| `-o, --output` | Output filename | `mdcomputers_products.csv` |
+| `-f, --format` | `csv` or `json` | Inferred from filename |
+| `-d, --delay` | Delay between pages in seconds | `1.5` |
+
+## Project Structure
+
+```text
+mdcomputers-scraper/
+├── mdcomputers_scraper.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+The repository intentionally contains only the files needed to run and understand the Python scraping assignment; the previous frontend/demo files have been removed.
+
+## Notes
+
+The scraper uses a session with a browser-like User-Agent, handles request errors, supports pagination, avoids duplicate product URLs, and exports the collected data to CSV or JSON. Use a reasonable request delay and comply with the target website's terms and applicable rules.
